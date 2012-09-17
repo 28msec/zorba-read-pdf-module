@@ -1,0 +1,48 @@
+<!--
+:: Copyright 2006-2008 The FLWOR Foundation.
+::
+:: Licensed under the Apache License, Version 2.0 (the "License");
+:: you may not use this file except in compliance with the License.
+:: You may obtain a copy of the License at
+::
+:: http://www.apache.org/licenses/LICENSE-2.0
+::
+:: Unless required by applicable law or agreed to in writing, software
+:: distributed under the License is distributed on an "AS IS" BASIS,
+:: WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+:: See the License for the specific language governing permissions and
+:: limitations under the License.
+::
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:rpo="http://www.zorba-xquery.com/modules/read-pdf/read-pdf-options"
+  targetNamespace="http://www.zorba-xquery.com/modules/read-pdf/read-pdf-options"
+  elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+  <xs:element name="extractText-options" type="rpo:extractText-optionsType"/>
+  <xs:element name="renderToImages-options" type="rpo:renderToImages-optionsType"/>
+
+  <xs:complexType name="extractText-optionsType">
+      <xs:all>
+        <xs:element name="text-kind" type="xs:string" minOccurs="0" default="html"/>
+        <xs:element name="start-page" type="xs:int" minOccurs="0" default="1"/>
+        <xs:element name="end-page" type="xs:int" minOccurs="0" />
+        <xs:element name="password" type="xs:string" minOccurs="0" />
+        <!--xs:element name="non-sequential-parser" type="xs:boolean" minOccurs="0" default="false" /-->
+        <xs:element name="ignore-corrupt-objects" type="xs:boolean" minOccurs="0" default="false" />
+        <xs:element name="ignore-beads" type="xs:boolean" minOccurs="0" default="false" />
+      </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="renderToImages-optionsType">
+  <xs:all>
+    <xs:element name="image-kind" type="xs:string" minOccurs="0" default="jpg"/>
+    <xs:element name="start-page" type="xs:int" minOccurs="0" default="1"/>
+    <xs:element name="end-page" type="xs:int" minOccurs="0" />
+    <xs:element name="password" type="xs:string" minOccurs="0" />
+    <!--xs:element name="non-sequential-parser" type="xs:boolean" minOccurs="0" default="false" />
+    <xs:element name="ignore-corrupt-objects" type="xs:boolean" minOccurs="0" default="false" />
+    <xs:element name="ignore-beads" type="xs:boolean" minOccurs="0" default="false" /-->
+  </xs:all>
+  </xs:complexType>
+</xs:schema>
