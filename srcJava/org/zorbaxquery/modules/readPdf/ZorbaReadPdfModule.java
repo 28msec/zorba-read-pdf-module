@@ -18,17 +18,72 @@ import java.awt.image.BufferedImage;
 //import java.io.FileInputStream;
 //import java.io.FileNotFoundException;
 //import java.io.FileOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.lang.reflect.Field;
 import java.util.Map;
 
 
 
 public class ZorbaReadPdfModule
 {
+    static
+    {
+        addDir(System.getProperty("org.zorba-xquery.baseLibPath") , "com/zorba-xquery/www/modules/");
+        System.loadLibrary("read-pdf_1.0");
+    }
+
+    private static void addDir(String baseLibPath, String relPath)
+    {
+        baseLibPath = System.getProperty("java.library.path");
+        //System.out.println("        jlp " + System.getProperty("java.library.path") ); System.out.flush();
+
+        String[] bases = baseLibPath.split(File.pathSeparator);
+
+        for (String base: bases)
+        {
+            String path = base + File.separator + relPath;
+
+            System.out.println("addDir cosc:  " + path); System.out.flush();
+
+            try
+            {
+                // This enables the java.library.path to be modified at runtime
+                // From a Sun engineer at http://forums.sun.com/thread.jspa?threadID=707176
+                //
+                Field field = ClassLoader.class.getDeclaredField("usr_paths");
+                field.setAccessible(true);
+                String[] paths = (String[])field.get(null);
+                for (int i = 0; i < paths.length; i++)
+                {
+                    if (path.equals(paths[i]))
+                    {
+                        return;
+                    }
+                }
+                String[] tmp = new String[paths.length+1];
+                System.arraycopy(paths,0,tmp,0,paths.length);
+                tmp[paths.length] = path;
+                field.set(null,tmp);
+                System.setProperty("java.library.path", System.getProperty("java.library.path") + File.pathSeparator + path);
+            }
+            catch (IllegalAccessException e)
+            {
+                throw new RuntimeException("Failed to get permissions to set library path");
+            }
+            catch (NoSuchFieldException e)
+            {
+                throw new RuntimeException("Failed to get field handle to set library path");
+            }
+        }
+    }
+
+
+
     public static class Options
     {
         // common options

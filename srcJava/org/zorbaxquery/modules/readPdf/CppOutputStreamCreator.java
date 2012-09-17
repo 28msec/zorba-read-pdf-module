@@ -6,12 +6,7 @@ import java.io.OutputStream;
 public class CppOutputStreamCreator
     implements OutputStreamCreator
 {
-    static
-    {
-        System.loadLibrary("read-pdf_1.0");
-    }
-
-    long _p;
+    private long _p;
 
     private native long nativeCreateNewOutputStream(long p);
 

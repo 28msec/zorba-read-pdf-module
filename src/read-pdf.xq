@@ -70,12 +70,12 @@ declare option ver:module-version "1.0";
  :  let $pdf := file:read-binary("path/to/my.pdf")
  :  let $options  :=
  :     <rpo:extractText-options>
- :       <rpo:html>true</rpo:html>
- :       <rpo:startPage>2</rpo:startPage>
- :       <rpo:endPage>3</rpo:endPage>
+ :       <rpo:text-kind>simple</rpo:text-kind>
+ :       <rpo:start-page>2</rpo:start-page>
+ :       <rpo:end-page>3</rpo:end-page>
  :       <rpo:password>decription_password</rpo:password>
- :       <rpo:ignoreCorruptObjects>false</rpo:ignoreCorruptObjects>
- :       <rpo:ignoreBeads>false</rpo:ignoreBeads>
+ :       <rpo:ignore-corrupt-objects>false</rpo:ignore-corrupt-objects>
+ :       <rpo:ignore-beads>false</rpo:ignore-beads>
  :     </rpo:extractText-options>
  :  return
  :      read-pdf:extractText($instances, $options)
@@ -85,13 +85,13 @@ declare option ver:module-version "1.0";
  : @param $pdf The input PDF instance as xs:base64Binary
  : @param $options Options:<br />
  :    <ul>
- :      <li>html: boolean (default true) Format output as HTML, othervise plain text.</li>
- :      <li>startPage: int (default 1) Which page to start with.</li>
- :      <li>endPage: int (default last document page) Which page to end with.</li>
+ :      <li>text-kind: string (default html) html: format output as HTML, simple: plain text.</li>
+ :      <li>start-page: int (default 1) Which page to start with.</li>
+ :      <li>end-page: int (default last document page) Which page to end with.</li>
  :      <li>password: string The decription password. Optional if PDF is password protected. </li>
- :      <li>ignoreCorruptObjects: boolean (default false) If true try recoved in case of corrupt objects,
+ :      <li>ignore-corrupt-objects: boolean (default false) If true try recoved in case of corrupt objects,
  :          othewise exit with error.</li>
- :      <li>ignoreBeads: boolean (default false) If true disables the separation by beads.</li>
+ :      <li>ignore-beads: boolean (default false) If true disables the separation by beads.</li>
  :    </ul>
  :
  :
@@ -142,9 +142,9 @@ read-pdf:extractText-internal( $pdf as xs:base64Binary,
  :  let $pdf := file:read-binary("path/to/my.pdf")
  :  let $options  :=
  :     <pdf:renderToImages-options>
- :       <pdf:imageType>jpg</pdf:imageType>
- :       <pdf:startPage>2</pdf:startPage>
- :       <pdf:endPage>3</pdf:endPage>
+ :       <pdf:image-kind>jpg</pdf:image-kind>
+ :       <pdf:start-page>2</pdf:start-page>
+ :       <pdf:end-page>3</pdf:end-page>
  :       <pdf:password>decription_password</pdf:password>
  :     </pdf:renderToImages-options>
  :  let $imgs := read-pdf:renderToImages($pdf, $options)
@@ -160,9 +160,9 @@ read-pdf:extractText-internal( $pdf as xs:base64Binary,
  : @param $pdf The input PDF instance as xs:base64Binary
  : @param $options Options:<br />
  :    <ul>
- :      <li>imageType: string (default jpg) Image type encoding. Supported encodings: jpg, png.</li>
- :      <li>startPage: int (default 1) Which page to start with.</li>
- :      <li>endPage: int (default last document page) Which page to end with.</li>
+ :      <li>image-kind: string (default jpg) Image type encoding. Supported encodings: jpg, png.</li>
+ :      <li>start-page: int (default 1) Which page to start with.</li>
+ :      <li>end-page: int (default last document page) Which page to end with.</li>
  :      <li>password: string  The decription password. Optional if PDF is password protected. </li>
  :    </ul>
  :

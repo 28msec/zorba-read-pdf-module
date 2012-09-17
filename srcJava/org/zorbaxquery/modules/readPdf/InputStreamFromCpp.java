@@ -1,24 +1,15 @@
 package org.zorbaxquery.modules.readPdf;
 
-import javax.xml.bind.DatatypeConverter;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Field;
 
 public class InputStreamFromCpp
     extends InputStream
 {
-    static
-    {
-        //System.loadLibrary("read-pdf_1.0");
-    }
-
     native int nativeRead(byte[] buf, int buf_size, long streamPointer);
 
 
     private static int BUF_SIZE = 100*1024;
-
 
     private long _cppObjectPointer = 0;
     /* data buffer - if empty is filled from _is
@@ -29,34 +20,6 @@ public class InputStreamFromCpp
      */
     private byte[] _buf;
     private int _index, _max;
-
-
-    public static void addDir(String s) {
-        System.out.println("addDir: " + s); System.out.flush();
-        try {
-            // This enables the java.library.path to be modified at runtime
-            // From a Sun engineer at http://forums.sun.com/thread.jspa?threadID=707176
-            //
-            Field field = ClassLoader.class.getDeclaredField("usr_paths");
-            field.setAccessible(true);
-            String[] paths = (String[])field.get(null);
-            for (int i = 0; i < paths.length; i++) {
-                if (s.equals(paths[i])) {
-                    return;
-                }
-            }
-            String[] tmp = new String[paths.length+1];
-            System.arraycopy(paths,0,tmp,0,paths.length);
-            tmp[paths.length] = s;
-            field.set(null,tmp);
-            System.setProperty("java.library.path", System.getProperty("java.library.path") + File.pathSeparator + s);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException("Failed to get permissions to set library path");
-        } catch (NoSuchFieldException e) {
-            throw new RuntimeException("Failed to get field handle to set library path");
-        }
-    }
-
 
 
     public InputStreamFromCpp(long p)
