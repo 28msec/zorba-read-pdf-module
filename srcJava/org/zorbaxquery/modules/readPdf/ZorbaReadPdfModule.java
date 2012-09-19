@@ -33,8 +33,9 @@ public class ZorbaReadPdfModule
 {
     static
     {
-        addDir(System.getProperty("org.zorba-xquery.baseLibPath") , "com/zorba-xquery/www/modules/");
-        System.loadLibrary("read-pdf_1.0");
+        // this modifies the java.library.path system property at runtime.
+        addDir(System.getProperty("org.zorba-xquery.baseLibPath") , Config.ZORBA_MODULE_RELATIVE_DIR);
+        System.loadLibrary(Config.ZORBA_MODULE_LIBRARY_NAME);
     }
 
     private static void addDir(String baseLibPath, String relPath)
@@ -48,7 +49,7 @@ public class ZorbaReadPdfModule
         {
             String path = base + File.separator + relPath;
 
-            System.out.println("addDir cosc:  " + path); System.out.flush();
+            //System.out.println("addDir:  " + path); System.out.flush();
 
             try
             {
