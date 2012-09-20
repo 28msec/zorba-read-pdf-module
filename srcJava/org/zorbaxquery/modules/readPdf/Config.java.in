@@ -1,0 +1,13 @@
+package org.zorbaxquery.modules.readPdf;
+
+/**
+ * The Config class is filled-in at builkd time with the relative dir and
+ * libname that are required at runtime for Syste.loadLibrary() call.
+ */
+public class Config
+{
+  public final static String ZORBA_MODULE_RELATIVE_DIR =
+      "@ZORBA_MODULE_RELATIVE_DIR@";
+  public final static String ZORBA_MODULE_LIBRARY_NAME =
+      "@ZORBA_MODULE_LIBFILE_WE@";
+}

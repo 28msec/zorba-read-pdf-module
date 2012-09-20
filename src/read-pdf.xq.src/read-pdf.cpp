@@ -712,12 +712,12 @@ void RPOptions::parseExtractOptions(Item optionsNode, ItemFactory *itemFactory)
   if(optionsNode.isNull())
     return;
 
-  if(!compareItemQName(optionsNode, "extractText-options", READPDF_OPTIONS_NAMESPACE) )
+  if(!compareItemQName(optionsNode, "extract-text-options", READPDF_OPTIONS_NAMESPACE) )
   {
     std::stringstream lErrorMessage;
     Item options_qname;
     optionsNode.getNodeName(options_qname);
-    lErrorMessage << "Options field must be of element 'extractText-options' " <<
+    lErrorMessage << "Options field must be of element 'extract-text-options' " <<
                      "instead of '" <<
                      options_qname.getStringValue() << "'. ";
     Item errWrongParamQName;
@@ -779,12 +779,12 @@ void RPOptions::parseRenderOptions(Item optionsNode, ItemFactory *itemFactory)
   if(optionsNode.isNull())
     return;
 
-  if(!compareItemQName(optionsNode, "renderToImages-options", READPDF_OPTIONS_NAMESPACE))
+  if(!compareItemQName(optionsNode, "render-to-images-options", READPDF_OPTIONS_NAMESPACE))
   {
     std::stringstream lErrorMessage;
     Item options_qname;
     optionsNode.getNodeName(options_qname);
-    lErrorMessage << "Options field must be of element 'renderToImage-options' instead of '" <<
+    lErrorMessage << "Options field must be of element 'render-to-images-options' instead of '" <<
                      options_qname.getStringValue() << "'";
     Item errWrongParamQName;
     String errName("WrongParam");

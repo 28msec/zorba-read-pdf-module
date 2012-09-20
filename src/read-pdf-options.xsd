@@ -19,30 +19,26 @@
   targetNamespace="http://www.zorba-xquery.com/modules/read-pdf/read-pdf-options"
   elementFormDefault="qualified" attributeFormDefault="unqualified">
 
-  <xs:element name="extractText-options" type="rpo:extractText-optionsType"/>
-  <xs:element name="renderToImages-options" type="rpo:renderToImages-optionsType"/>
+  <xs:element name="extract-text-options" type="rpo:extract-text-optionsType"/>
+  <xs:element name="render-to-images-options" type="rpo:render-to-images-optionsType"/>
 
-  <xs:complexType name="extractText-optionsType">
-      <xs:all>
+  <xs:complexType name="extract-text-optionsType">
+     <xs:all>
         <xs:element name="text-kind" type="xs:string" minOccurs="0" default="html"/>
         <xs:element name="start-page" type="xs:int" minOccurs="0" default="1"/>
         <xs:element name="end-page" type="xs:int" minOccurs="0" />
         <xs:element name="password" type="xs:string" minOccurs="0" />
-        <!--xs:element name="non-sequential-parser" type="xs:boolean" minOccurs="0" default="false" /-->
         <xs:element name="ignore-corrupt-objects" type="xs:boolean" minOccurs="0" default="false" />
         <xs:element name="ignore-beads" type="xs:boolean" minOccurs="0" default="false" />
-      </xs:all>
+     </xs:all>
   </xs:complexType>
 
-  <xs:complexType name="renderToImages-optionsType">
-  <xs:all>
-    <xs:element name="image-kind" type="xs:string" minOccurs="0" default="jpg"/>
-    <xs:element name="start-page" type="xs:int" minOccurs="0" default="1"/>
-    <xs:element name="end-page" type="xs:int" minOccurs="0" />
-    <xs:element name="password" type="xs:string" minOccurs="0" />
-    <!--xs:element name="non-sequential-parser" type="xs:boolean" minOccurs="0" default="false" />
-    <xs:element name="ignore-corrupt-objects" type="xs:boolean" minOccurs="0" default="false" />
-    <xs:element name="ignore-beads" type="xs:boolean" minOccurs="0" default="false" /-->
-  </xs:all>
+  <xs:complexType name="render-to-images-optionsType">
+     <xs:all>
+		<xs:element name="image-kind" type="xs:string" minOccurs="0" default="jpg"/>
+		<xs:element name="start-page" type="xs:int" minOccurs="0" default="1"/>
+		<xs:element name="end-page" type="xs:int" minOccurs="0" />
+		<xs:element name="password" type="xs:string" minOccurs="0" />
+     </xs:all>
   </xs:complexType>
 </xs:schema>

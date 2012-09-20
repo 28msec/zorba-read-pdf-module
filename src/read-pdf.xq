@@ -69,16 +69,16 @@ declare option ver:module-version "1.0";
  :      "http://www.zorba-xquery.com/modules/read-pdf/read-pdf-options";
  :  let $pdf := file:read-binary("path/to/my.pdf")
  :  let $options  :=
- :     <rpo:extractText-options>
+ :     <rpo:extract-text-options>
  :       <rpo:text-kind>simple</rpo:text-kind>
  :       <rpo:start-page>2</rpo:start-page>
  :       <rpo:end-page>3</rpo:end-page>
  :       <rpo:password>decription_password</rpo:password>
  :       <rpo:ignore-corrupt-objects>false</rpo:ignore-corrupt-objects>
  :       <rpo:ignore-beads>false</rpo:ignore-beads>
- :     </rpo:extractText-options>
+ :     </rpo:extract-text-options>
  :  return
- :      read-pdf:extractText($instances, $options)
+ :      read-pdf:extract-text($instances, $options)
  :
  : </pre>
  : <br />
@@ -103,7 +103,7 @@ declare option ver:module-version "1.0";
  : @example test/Queries/read-pdf/extractText-badOpt.xq
  :)
 declare function
-read-pdf:extractText($pdf as xs:base64Binary, $options as element(rp-options:extractText-options)? )
+read-pdf:extract-text($pdf as xs:base64Binary, $options as element(rp-options:extract-text-options)? )
   as xs:string
 {
   let $validated-options :=
@@ -122,7 +122,7 @@ read-pdf:extractText($pdf as xs:base64Binary, $options as element(rp-options:ext
 
 declare %private function
 read-pdf:extractText-internal( $pdf as xs:base64Binary,
-    $options as element(rp-options:extractText-options, rp-options:extractText-optionsType)? )
+    $options as element(rp-options:extract-text-options, rp-options:extract-text-optionsType)? )
   as xs:string external;
 
 
@@ -141,13 +141,13 @@ read-pdf:extractText-internal( $pdf as xs:base64Binary,
  :      "http://www.zorba-xquery.com/modules/read-pdf/read-pdf-options";
  :  let $pdf := file:read-binary("path/to/my.pdf")
  :  let $options  :=
- :     <pdf:renderToImages-options>
+ :     <pdf:render-to-images-options>
  :       <pdf:image-kind>jpg</pdf:image-kind>
  :       <pdf:start-page>2</pdf:start-page>
  :       <pdf:end-page>3</pdf:end-page>
  :       <pdf:password>decription_password</pdf:password>
- :     </pdf:renderToImages-options>
- :  let $imgs := read-pdf:renderToImages($pdf, $options)
+ :     </pdf:render-to-images-options>
+ :  let $imgs := read-pdf:render-to-images($pdf, $options)
  :  for $img at $pos in $imgs
  :  return
  :  {
@@ -174,8 +174,8 @@ read-pdf:extractText-internal( $pdf as xs:base64Binary,
  : @example test/Queries/read-pdf/extractText-badOpt.xq
  :)
 declare function
-read-pdf:renderToImages($pdf as xs:base64Binary,
-    $options as element(rp-options:renderToImages-options)? )
+read-pdf:render-to-images($pdf as xs:base64Binary,
+    $options as element(rp-options:render-to-images-options)? )
   as xs:base64Binary*
 {
   let $validated-options :=
@@ -194,5 +194,5 @@ read-pdf:renderToImages($pdf as xs:base64Binary,
 
 declare %private function
 read-pdf:renderToImages-internal($pdf as xs:base64Binary,
-    $options as element(rp-options:renderToImages-options, rp-options:renderToImages-optionsType)? )
+    $options as element(rp-options:render-to-images-options, rp-options:render-to-images-optionsType)? )
   as xs:base64Binary* external;

@@ -46,7 +46,7 @@ CppOutputStreamCreator* CppOutputStreamCreator::newInstance(JNIEnv * env)
 std::ostream* CppOutputStreamCreator::newOutputStream()
 {
     std::stringstream* ss = new std::stringstream(std::stringstream::in | std::stringstream::out);
-    _ss.push_back(ss);
+    _ssVector.push_back(ss);
     return ss;
 }
 

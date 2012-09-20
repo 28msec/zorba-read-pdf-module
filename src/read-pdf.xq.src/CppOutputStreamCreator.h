@@ -15,7 +15,7 @@ class CppOutputStreamCreator
     // Global reference to mirror java object CppOutputStreamCreator
     jobject _obj;
     // List of streams created by newOutputStream()
-    std::vector<std::stringstream *> _ss;
+    std::vector<std::stringstream *> _ssVector;
 
     CppOutputStreamCreator()
     {}
@@ -27,9 +27,9 @@ class CppOutputStreamCreator
     ~CppOutputStreamCreator()
     {
         _obj = 0;
-        for ( int i = 0; i<_ss.size(); i++)
+        for ( std::vector<std::stringstream *>::size_type i = 0; i<_ssVector.size(); i++)
         {
-          delete _ss[i];
+          delete _ssVector[i];
         }
     }
 
@@ -39,14 +39,14 @@ class CppOutputStreamCreator
 
     int getSize()
     {
-      return _ss.size();
+      return _ssVector.size();
     }
 
     jobject getJavaObject()
     { return _obj; }
 
     std::stringstream * getSS(int i)
-    { return _ss[i]; }
+    { return _ssVector[i]; }
 
     void close(JNIEnv * env);
 };
