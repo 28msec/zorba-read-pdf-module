@@ -78,7 +78,7 @@ declare option ver:module-version "1.0";
  :       <rpo:ignore-beads>false</rpo:ignore-beads>
  :     </rpo:extract-text-options>
  :  return
- :      read-pdf:extract-text($instances, $options)
+ :      read-pdf:extract-text($pdf, $options)
  :
  : </pre>
  : <br />
