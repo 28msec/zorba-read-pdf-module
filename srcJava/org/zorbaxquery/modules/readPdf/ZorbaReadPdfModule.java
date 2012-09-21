@@ -34,13 +34,12 @@ public class ZorbaReadPdfModule
     static
     {
         // this modifies the java.library.path system property at runtime.
-        addDir(System.getProperty("org.zorba-xquery.baseLibPath") , Config.ZORBA_MODULE_RELATIVE_DIR);
+        addDir(System.getProperty("java.library.path") , Config.ZORBA_MODULE_RELATIVE_DIR);
         System.loadLibrary(Config.ZORBA_MODULE_LIBRARY_NAME);
     }
 
     private static void addDir(String baseLibPath, String relPath)
     {
-        baseLibPath = System.getProperty("java.library.path");
         //System.out.println("        jlp " + System.getProperty("java.library.path") ); System.out.flush();
 
         String[] bases = baseLibPath.split(File.pathSeparator);
