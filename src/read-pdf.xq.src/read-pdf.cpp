@@ -85,11 +85,6 @@ class ExtractTextFunction : public ContextualExternalFunction
       evaluate(const ExternalFunction::Arguments_t& args,
                const zorba::StaticContext*,
                const zorba::DynamicContext*) const;
-
-  private:
-    /*std::string extractText(const ExternalFunction::Arguments_t& args,
-            JNIEnv * env,
-            jlong pdfInputStreamPointer) const;*/
 };
 
 class RenderToImagesFunction : public ContextualExternalFunction
@@ -177,16 +172,18 @@ private:
   int32_t theStartPage;
   int32_t theEndPage;
 
-
   bool theIgnoreCorruptObjects;
   bool theIgnoreBeads;
 
+  String theStartPageSeparator;
+  String theEndPageSeparator;
 
 public:
   RPOptions() : thePassword(""), theTextKind(RPOptions::TEXT_HTML),
     theImageKind(RPOptions::IMAGE_JPG),
     theStartPage(1), theEndPage(0x7FFFFFFF),
-    theIgnoreCorruptObjects(false), theIgnoreBeads(false)
+    theIgnoreCorruptObjects(false), theIgnoreBeads(false),
+    theStartPageSeparator(""), theEndPageSeparator("")
   {}
 
   void parseExtractOptions(Item optionsNode, ItemFactory *itemFactory);
@@ -225,6 +222,16 @@ public:
   bool isIgnoreBeads()
   {
     return theIgnoreBeads;
+  }
+
+  String getStartPageSeparator()
+  {
+    return theStartPageSeparator;
+  }
+
+  String getEndPageSeparator()
+  {
+    return theEndPageSeparator;
   }
 };
 
@@ -276,7 +283,8 @@ std::string extractText(const ExternalFunction::Arguments_t& args,
     CHECK_EXCEPTION(env);
     jmethodID optSetPasswordId = env->GetMethodID(optClass, "setPassword", "(Ljava/lang/String;)V" );
     CHECK_EXCEPTION(env);
-    env->CallVoidMethod(optObj, optSetPasswordId, options.getPassword().c_str());
+    jstring jstrPass = env->NewStringUTF(options.getPassword().c_str());
+    env->CallVoidMethod(optObj, optSetPasswordId, jstrPass);
     CHECK_EXCEPTION(env);
     jmethodID optSetStartPageId = env->GetMethodID(optClass, "setStartPage", "(I)V" );
     CHECK_EXCEPTION(env);
@@ -297,6 +305,16 @@ std::string extractText(const ExternalFunction::Arguments_t& args,
     jmethodID optSetIgnoreBeadsId = env->GetMethodID(optClass, "setIgnoreBeads", "(Z)V" );
     CHECK_EXCEPTION(env);
     env->CallVoidMethod(optObj, optSetIgnoreBeadsId, options.isIgnoreBeads());
+    CHECK_EXCEPTION(env);
+    jmethodID optSetStartPageSepId = env->GetMethodID(optClass, "setStartPageSeparator", "(Ljava/lang/String;)V" );
+    CHECK_EXCEPTION(env);
+    jstring jstrStart = env->NewStringUTF(options.getStartPageSeparator().c_str());
+    env->CallVoidMethod(optObj, optSetStartPageSepId, jstrStart);
+    CHECK_EXCEPTION(env);
+    jmethodID optSetEndPageSepId = env->GetMethodID(optClass, "setEndPageSeparator", "(Ljava/lang/String;)V" );
+    CHECK_EXCEPTION(env);
+    jstring jstrEnd = env->NewStringUTF(options.getEndPageSeparator().c_str());
+    env->CallVoidMethod(optObj, optSetEndPageSepId, jstrEnd);
     CHECK_EXCEPTION(env);
 
     // Create a ZorbaReadPdfModule class
@@ -422,19 +440,18 @@ ExtractTextFunction::evaluate(const ExternalFunction::Arguments_t& args,
       //env->CallObjectMethod(printWriter, env->GetMethodID(printWriterClass, "flush", "()V"));
       jmethodID toStringMethod =
             env->GetMethodID(stringWriterClass, "toString", "()Ljava/lang/String;");
-      jobject errorMessageObj = env->CallObjectMethod(
-                stringWriter, toStringMethod);
+      jobject errorMessageObj = env->CallObjectMethod( stringWriter, toStringMethod);
       jstring errorMessage = (jstring) errorMessageObj;
-      const char *errMsg = env->GetStringUTFChars(errorMessage, 0);
+      const char *errMsg = env->GetStringUTFChars(errorMessage, NULL);
       std::stringstream s;
       s << "A Java Exception was thrown:" << std::endl << errMsg;
       env->ReleaseStringUTFChars(errorMessage, errMsg);
-      std::string err("");
-      err += s.str();
+      String errDescription;
+      errDescription += s.str();
       env->ExceptionClear();
-      Item lQName = theFactory->createQName(READPDF_MODULE_NAMESPACE,
+      Item errQName = theFactory->createQName(READPDF_MODULE_NAMESPACE,
                 "JAVA-EXCEPTION");
-      throw USER_EXCEPTION(lQName, err);
+      throw USER_EXCEPTION(errQName, errDescription);
   }
 
   return ItemSequence_t(new EmptySequence());
@@ -518,12 +535,9 @@ void renderToImages(const ExternalFunction::Arguments_t& args,
     for ( int i=0; i<osCreator->getSize(); i++)
     {
       std::stringstream* ss = osCreator->getSS(i);
-      String lStr = encoding::Base64::encode(ss->str());
-      vec.push_back(itemFactory->createBase64Binary(lStr.c_str(), lStr.size()));
-
-      // not working
-      //base64::attach(*ss);
-      //vec.push_back(itemFactory->createBase64Binary(*ss));
+      std::string ssString = ss->str();
+      vec.push_back(
+          itemFactory->createBase64Binary((const unsigned char*)ssString.c_str(), ssString.size()));
     }
 
     osCreator->close(env);
@@ -771,6 +785,16 @@ void RPOptions::parseExtractOptions(Item optionsNode, ItemFactory *itemFactory)
       theIgnoreBeads = true;
     else
       theIgnoreBeads = false;
+  }
+
+  if(getChild(optionsNode, "start-page-separator", READPDF_OPTIONS_NAMESPACE, child_item))
+  {
+    theStartPageSeparator = child_item.getStringValue();
+  }
+
+  if(getChild(optionsNode, "end-page-separator", READPDF_OPTIONS_NAMESPACE, child_item))
+  {
+    theEndPageSeparator = child_item.getStringValue();
   }
 }
 

@@ -30,15 +30,17 @@
         <xs:element name="password" type="xs:string" minOccurs="0" />
         <xs:element name="ignore-corrupt-objects" type="xs:boolean" minOccurs="0" default="false" />
         <xs:element name="ignore-beads" type="xs:boolean" minOccurs="0" default="false" />
+        <xs:element name="start-page-separator" type="xs:string" minOccurs="0" />
+        <xs:element name="end-page-separator" type="xs:string" minOccurs="0" />
      </xs:all>
   </xs:complexType>
 
   <xs:complexType name="render-to-images-optionsType">
      <xs:all>
-		<xs:element name="image-kind" type="xs:string" minOccurs="0" default="jpg"/>
-		<xs:element name="start-page" type="xs:int" minOccurs="0" default="1"/>
-		<xs:element name="end-page" type="xs:int" minOccurs="0" />
-		<xs:element name="password" type="xs:string" minOccurs="0" />
+        <xs:element name="image-kind" type="xs:string" minOccurs="0" default="jpg"/>
+        <xs:element name="start-page" type="xs:int" minOccurs="0" default="1"/>
+        <xs:element name="end-page" type="xs:int" minOccurs="0" />
+        <xs:element name="password" type="xs:string" minOccurs="0" />
      </xs:all>
   </xs:complexType>
 </xs:schema>

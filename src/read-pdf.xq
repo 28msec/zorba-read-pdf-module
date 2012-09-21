@@ -76,6 +76,8 @@ declare option ver:module-version "1.0";
  :       <rpo:password>decription_password</rpo:password>
  :       <rpo:ignore-corrupt-objects>false</rpo:ignore-corrupt-objects>
  :       <rpo:ignore-beads>false</rpo:ignore-beads>
+ :       <rpo:start-page-separator>---start-sep---</rpo:start-page-separator>
+ :       <rpo:end-page-separator>---end-sep---</rpo:end-page-separator>
  :     </rpo:extract-text-options>
  :  return
  :      read-pdf:extract-text($pdf, $options)
@@ -92,6 +94,8 @@ declare option ver:module-version "1.0";
  :      <li>ignore-corrupt-objects: boolean (default false) If true try recoved in case of corrupt objects,
  :          othewise exit with error.</li>
  :      <li>ignore-beads: boolean (default false) If true disables the separation by beads.</li>
+ :      <li>start-page-separator: string The optional separator at every start page. </li>
+ :      <li>end-page-separator: string The optional separator at every end page. </li>
  :    </ul>
  :
  :
@@ -127,7 +131,7 @@ read-pdf:extractText-internal( $pdf as xs:base64Binary,
 
 
 (:~
- : Renders the each page of the PDF document as an image.
+ : Renders each page of the PDF document as an image.
  : <br />
  : Please consult the
  : <a href="http://pdfbox.apache.org/">official PDFBox documentation for further

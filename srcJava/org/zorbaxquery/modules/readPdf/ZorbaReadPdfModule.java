@@ -104,13 +104,17 @@ public class ZorbaReadPdfModule
         private static int IMAGE_JPG = 1;
         private static int IMAGE_PNG = 2;
         private int _imageKind = IMAGE_JPG;
+        
+        private String _startPageSeparator = "";
+        private String _endPageSeparator = "";
 
         public Options()
         {
         }
 
         public Options(String password, boolean nonSequentialParser, int startPage, int endPage,
-                       int textOutput, boolean ignoreCorruptObjects, boolean ignoreBeads)
+                       int textOutput, boolean ignoreCorruptObjects, boolean ignoreBeads,
+                       String startPageSeparator, String endPageSeparator)
         {
             _password = password;
             //_nonSequentialParser = nonSequentialParser;
@@ -119,6 +123,8 @@ public class ZorbaReadPdfModule
             _textKind = (textOutput == TEXT_SIMPLE ? TEXT_SIMPLE : TEXT_HTML);
             _ignoreCorruptObjects = ignoreCorruptObjects;
             _ignoreBeads = ignoreBeads;
+            _startPageSeparator = startPageSeparator;
+            _endPageSeparator = endPageSeparator;
         }
 
         public Options(String password, /*boolean nonSequentialParser,*/ int startPage, int endPage,
@@ -221,6 +227,26 @@ public class ZorbaReadPdfModule
             return this._imageKind == IMAGE_JPG;
         }
 
+        public String getStartPageSeparator()
+        {
+            return _startPageSeparator;
+        }
+
+        public void setStartPageSeparator(String startPageSeparator)
+        {
+            _startPageSeparator = startPageSeparator;
+        }
+
+        public String getEndPageSeparator()
+        {
+            return _endPageSeparator;
+        }
+        
+        public void setEndPageSeparator(String endPageSeparator)
+        {
+            _endPageSeparator = endPageSeparator;
+        }
+
         @Override
         public String toString()
         {
@@ -232,7 +258,9 @@ public class ZorbaReadPdfModule
                     ", _ignoreCorruptObjects=" + _ignoreCorruptObjects +
                     ", _ignoreBeads=" + _ignoreBeads +
                     ", _imageKind=" + (_imageKind == IMAGE_JPG ? "JPG" : "PNG" ) +
-                    '}';
+                    ", _startPageSep='" + _startPageSeparator +
+                    "', _endPageSep='" + _endPageSeparator +
+                    "'}";
         }
     }
 
@@ -312,7 +340,10 @@ public class ZorbaReadPdfModule
                 {
                     stripper = new PDFTextStripper(encoding);
                 }
-                stripper.setForceParsing( options.isIgnoreCorruptObjects() );
+                stripper.setPageStart( options.getStartPageSeparator() );
+                stripper.setPageEnd( options.getEndPageSeparator() );
+
+                stripper.setForceParsing(options.isIgnoreCorruptObjects());
                 //stripper.setSortByPosition( sort );
                 stripper.setShouldSeparateByBeads( options.isIgnoreBeads() );
                 stripper.setStartPage( options.getStartPage() );
@@ -374,6 +405,10 @@ public class ZorbaReadPdfModule
             }
             //System.out.println("java:    extractText() result '" + output.toString() + "'"); System.out.flush();
             return output.toString();
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException("Bad PDF document or input can not be processed.", e);
         }
         catch (Exception e)
         {
@@ -485,6 +520,10 @@ public class ZorbaReadPdfModule
                     document.close();
                 }
             }
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException("Bad PDF document or input can not be processed.", e);
         }
         catch (Exception e)
         {
