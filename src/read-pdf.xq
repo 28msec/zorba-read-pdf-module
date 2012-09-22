@@ -1,7 +1,7 @@
 xquery version "3.0";
 
 (:
- : Copyright 2006-2009 The FLWOR Foundation.
+ : Copyright 2006-2012 The FLWOR Foundation.
  :
  : Licensed under the Apache License, Version 2.0 (the "License");
  : you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ xquery version "3.0";
  : <b>Note:</b> Since this module has a Java library dependency a JVM required
  : to be installed on the system. For Windows: jvm.dll is required on the system
  : path ( usually located in "C:\Program Files\Java\jre6\bin\client".
- : <b>Note:<b> For Debian based Linux distributions install PdfBox and FontBox
+ : <b>Note:</b> For Debian based Linux distributions install PdfBox and FontBox
  : packages: sudo apt-get install libpdfbox-java libfontbox-java
  :
  : @author Cezar Andrei
@@ -69,15 +69,15 @@ declare option ver:module-version "1.0";
  :      "http://www.zorba-xquery.com/modules/read-pdf/read-pdf-options";
  :  let $pdf := file:read-binary("path/to/my.pdf")
  :  let $options  :=
- :     <rpo:extract-text-options>
+ :     <rpo:extract-text-options xmlns:rpo="http://www.zorba-xquery.com/modules/read-pdf/read-pdf-options">
  :       <rpo:text-kind>simple</rpo:text-kind>
  :       <rpo:start-page>2</rpo:start-page>
  :       <rpo:end-page>3</rpo:end-page>
  :       <rpo:password>decription_password</rpo:password>
  :       <rpo:ignore-corrupt-objects>false</rpo:ignore-corrupt-objects>
  :       <rpo:ignore-beads>false</rpo:ignore-beads>
- :       <rpo:start-page-separator>---start-sep---</rpo:start-page-separator>
- :       <rpo:end-page-separator>---end-sep---</rpo:end-page-separator>
+ :       <rpo:start-page-separator>---start-page-separator---</rpo:start-page-separator>
+ :       <rpo:end-page-separator>---end-page-separator---</rpo:end-page-separator>
  :     </rpo:extract-text-options>
  :  return
  :      read-pdf:extract-text($pdf, $options)
@@ -102,9 +102,9 @@ declare option ver:module-version "1.0";
  : @return The text contained in the PDF document.
  : @error read-pdf:VM001 If Zorba was unable to start the JVM.
  : @error read-pdf:JAVA-EXCEPTION If Apache PDFBox throws an exception.
- : @example test/Queries/read-pdf/extractText-opt1.xq
- : @example test/Queries/read-pdf/extractText-noOpt.xq
- : @example test/Queries/read-pdf/extractText-badOpt.xq
+ : example test/Queries/read-pdf/extractText-opt1.xq
+ : example test/Queries/read-pdf/extractText-noOpt.xq
+ : example test/Queries/read-pdf/extractText-badOpt.xq
  :)
 declare function
 read-pdf:extract-text($pdf as xs:base64Binary, $options as element(rp-options:extract-text-options)? )
@@ -120,12 +120,12 @@ read-pdf:extract-text($pdf as xs:base64Binary, $options as element(rp-options:ex
     else
       validate{$options}
   return
-    read-pdf:extractText-internal($pdf, $validated-options)
+    read-pdf:extract-text-internal($pdf, $validated-options)
 };
 
 
 declare %private function
-read-pdf:extractText-internal( $pdf as xs:base64Binary,
+read-pdf:extract-text-internal( $pdf as xs:base64Binary,
     $options as element(rp-options:extract-text-options, rp-options:extract-text-optionsType)? )
   as xs:string external;
 
@@ -145,17 +145,17 @@ read-pdf:extractText-internal( $pdf as xs:base64Binary,
  :      "http://www.zorba-xquery.com/modules/read-pdf/read-pdf-options";
  :  let $pdf := file:read-binary("path/to/my.pdf")
  :  let $options  :=
- :     <pdf:render-to-images-options>
- :       <pdf:image-kind>jpg</pdf:image-kind>
- :       <pdf:start-page>2</pdf:start-page>
- :       <pdf:end-page>3</pdf:end-page>
- :       <pdf:password>decription_password</pdf:password>
- :     </pdf:render-to-images-options>
+ :     <rpo:render-to-images-options xmlns:rpo="http://www.zorba-xquery.com/modules/read-pdf/read-pdf-options">
+ :       <rpo:image-kind>jpg</rpo:image-kind>
+ :       <rpo:start-page>2</rpo:start-page>
+ :       <rpo:end-page>3</rpo:end-page>
+ :       <rpo:password>decription_password</rpo:password>
+ :     </rpo:render-to-images-options>
  :  let $imgs := read-pdf:render-to-images($pdf, $options)
  :  for $img at $pos in $imgs
  :  return
  :  {
- :    file:write-binary("img-" || $pos || ".jpg", $img);
+ :    file:write-binary("img-page" || $pos || ".jpg", $img);
  :    $pos
  :  }
  :
@@ -173,9 +173,9 @@ read-pdf:extractText-internal( $pdf as xs:base64Binary,
  : @return The rendered pages in the PDF document, as images.
  : @error read-pdf:VM001 If Zorba was unable to start the JVM.
  : @error read-pdf:JAVA-EXCEPTION If Apache PDFBox throws an exception.
- : @example test/Queries/read-pdf/extractText-opt1.xq
- : @example test/Queries/read-pdf/extractText-noOpt.xq
- : @example test/Queries/read-pdf/extractText-badOpt.xq
+ : example test/Queries/read-pdf/render-to-images-opt1.xq
+ : example test/Queries/read-pdf/render-to-images-noOpt.xq
+ : example test/Queries/read-pdf/render-to-images-badOpt.xq
  :)
 declare function
 read-pdf:render-to-images($pdf as xs:base64Binary,
@@ -192,11 +192,11 @@ read-pdf:render-to-images($pdf as xs:base64Binary,
     else
       validate{$options}
   return
-    read-pdf:renderToImages-internal($pdf, $validated-options)
+    read-pdf:render-to-images-internal($pdf, $validated-options)
 };
 
 
 declare %private function
-read-pdf:renderToImages-internal($pdf as xs:base64Binary,
+read-pdf:render-to-images-internal($pdf as xs:base64Binary,
     $options as element(rp-options:render-to-images-options, rp-options:render-to-images-optionsType)? )
   as xs:base64Binary* external;

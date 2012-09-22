@@ -1,11 +1,11 @@
-# Copyright 2006-2010 The FLWOR Foundation.
-# 
+# Copyright 2006-2012 The FLWOR Foundation.
+#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 # http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,7 +28,7 @@ IF (zorba_util-jvm_module_FOUND)
 
     IF (WIN32)
       SET (PDFBOX_PATH $ENV{PDFBOX_HOME}\\lib)
-      FIND_FILE( PDFBOX_JAR NAMES pdfbox.jar pdfbox-1.7.0.jar pdfbox-1.6.0.jar 
+      FIND_FILE( PDFBOX_JAR NAMES pdfbox.jar pdfbox-1.7.0.jar pdfbox-1.6.0.jar
                  PATHS ${PDFBOX_PATH} )
       FIND_FILE( FONTBOX_JAR NAMES fontbox.jar fontbox-1.7.0.jar fontbox-1.6.0.jar
                  PATHS ${PDFBOX_PATH} )
@@ -37,7 +37,7 @@ IF (zorba_util-jvm_module_FOUND)
       FIND_FILE( PDFBOX_JAR NAMES pdfbox.jar pdfbox-1.7.0.jar pdfbox-1.6.0.jar PATHS /usr/share/java/ /usr/share/java/pdfbox/ )
       FIND_FILE( FONTBOX_JAR NAMES fontbox.jar fontbox-1.7.0.jar fontbox-1.6.0.jar PATHS /usr/share/java/ /usr/share/java/pdfbox/ )
     ENDIF (WIN32)
-    
+
     SET(ALL_PDFBOX_JARS FALSE)
     IF(EXISTS ${PDFBOX_JAR})
       IF(EXISTS ${FONTBOX_JAR})
@@ -46,7 +46,7 @@ IF (zorba_util-jvm_module_FOUND)
     ENDIF(EXISTS ${PDFBOX_JAR})
 
     IF( ALL_PDFBOX_JARS )
-      
+
       MESSAGE (STATUS "pdfbox jars found at: " ${PDFBOX_JAR}  ${FONTBOX_JAR})
       # if everything is found build this module
       SET (READ_PDF_VERSION 1.0)

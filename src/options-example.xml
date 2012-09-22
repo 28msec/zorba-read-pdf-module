@@ -1,5 +1,5 @@
 <!--
-:: Copyright 2006-2008 The FLWOR Foundation.
+:: Copyright 2006-2012 The FLWOR Foundation.
 ::
 :: Licensed under the Apache License, Version 2.0 (the "License");
 :: you may not use this file except in compliance with the License.
@@ -14,11 +14,19 @@
 :: limitations under the License.
 ::
 -->
-<extractText-options xmlns='http://www.zorba-xquery.com/modules/read-pdf/read-pdf-options'>
-  <text-kind>html<text-kind/>
-  <start-page>1</start-page>
-  <end-page>3</end-page>
-  <password>mypass</password>
-  <ignore-corrupt-objects>false</ignore-corrupt-objects>
-  <ignore-beads>false</ignore-beads>
-</extractText-options>
+<rpo:extract-text-options xmlns:rpo='http://www.zorba-xquery.com/modules/read-pdf/read-pdf-options'>
+    <rpo:text-kind>simple</rpo:text-kind>
+    <rpo:start-page>1</rpo:start-page>
+    <rpo:end-page>3</rpo:end-page>
+    <rpo:password>mypass</rpo:password>
+    <rpo:ignore-corrupt-objects>false</rpo:ignore-corrupt-objects>
+    <rpo:ignore-beads>false</rpo:ignore-beads>
+
+    <rpo:start-page-separator>
+---start-page-separator---
+    </rpo:start-page-separator>
+
+    <rpo:end-page-separator>
+---end-page-separator---
+    </rpo:end-page-separator>
+</rpo:extract-text-options>

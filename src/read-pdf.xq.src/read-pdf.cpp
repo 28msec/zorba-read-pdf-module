@@ -1,5 +1,5 @@
 /*
- * Copyright 2006-2008 The FLWOR Foundation.
+ * Copyright 2006-2012 The FLWOR Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -79,7 +79,7 @@ class ExtractTextFunction : public ContextualExternalFunction
     { return theModule->getURI(); }
 
     virtual String getLocalName() const
-    { return "extractText-internal"; }
+    { return "extract-text-internal"; }
 
     virtual ItemSequence_t
       evaluate(const ExternalFunction::Arguments_t& args,
@@ -109,7 +109,7 @@ class RenderToImagesFunction : public ContextualExternalFunction
     { return theModule->getURI(); }
 
     virtual String getLocalName() const
-    { return "renderToImages-internal"; }
+    { return "render-to-images-internal"; }
 
     virtual ItemSequence_t
       evaluate(const ExternalFunction::Arguments_t& args,
@@ -238,11 +238,11 @@ public:
 
 ExternalFunction* ReadPdfModule::getExternalFunction(const String& localName)
 {
-  if (localName == "extractText-internal")
+  if (localName == "extract-text-internal")
   {
       return extractText;
   }
-  else if (localName == "renderToImages-internal")
+  else if (localName == "render-to-images-internal")
   {
       return renderToImages;
   }
