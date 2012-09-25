@@ -27,16 +27,17 @@ IF (zorba_util-jvm_module_FOUND)
     INCLUDE_DIRECTORIES (${zorba_util-jvm_module_INCLUDE_DIRS})
 
     IF (WIN32)
-      SET (PDFBOX_PATH $ENV{PDFBOX_HOME}\\lib)
-      FIND_FILE( PDFBOX_JAR NAMES pdfbox.jar pdfbox-1.7.0.jar pdfbox-1.6.0.jar
-                 PATHS ${PDFBOX_PATH} )
-      FIND_FILE( FONTBOX_JAR NAMES fontbox.jar fontbox-1.7.0.jar fontbox-1.6.0.jar
-                 PATHS ${PDFBOX_PATH} )
+      SET (PDFBOX_PATH "$ENV{PDFBOX_HOME}\\lib C:\\dev\\libraries\\pdfbox C:\\dev\\libraries\\pdfbox\\lib C:\\dev\\libraries\\pdfbox\\build")
       MESSAGE (STATUS "pdfbox fontbox jars searching path: " ${PDFBOX_PATH} )
     ELSE (WIN32)
-      FIND_FILE( PDFBOX_JAR NAMES pdfbox.jar pdfbox-1.7.0.jar pdfbox-1.6.0.jar PATHS /usr/share/java/ /usr/share/java/pdfbox/ )
-      FIND_FILE( FONTBOX_JAR NAMES fontbox.jar fontbox-1.7.0.jar fontbox-1.6.0.jar PATHS /usr/share/java/ /usr/share/java/pdfbox/ )
+      SET (PDFBOX_PATH /usr/share/java/
+                       /usr/share/java/pdfbox/ /opt/local/share/java/pdfbox/
+                       /usr/share/java/fontbox/ /opt/local/share/java/fontbox/
+                       ${Java_LIBRARIES})
     ENDIF (WIN32)
+
+    ZORBA_FIND_JAR( PDFBOX_JAR NAMES pdfbox PATHS ${PDFBOX_PATH} )
+    ZORBA_FIND_JAR( FONTBOX_JAR NAMES fontbox PATHS ${PDFBOX_PATH} )
 
     SET(ALL_PDFBOX_JARS FALSE)
     IF(EXISTS ${PDFBOX_JAR})
@@ -75,3 +76,5 @@ IF (zorba_util-jvm_module_FOUND)
 ELSE (zorba_util-jvm_module_FOUND)
   MESSAGE (STATUS "Zorba's util-jvm module not found; skipping read-pdf module.")
 ENDIF (zorba_util-jvm_module_FOUND)
+
+MESSAGE (STATUS " --- End module:   read-pdf    ---")
