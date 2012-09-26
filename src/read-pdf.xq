@@ -102,9 +102,12 @@ declare option ver:module-version "1.0";
  : @return The text contained in the PDF document.
  : @error read-pdf:VM001 If Zorba was unable to start the JVM.
  : @error read-pdf:JAVA-EXCEPTION If Apache PDFBox throws an exception.
- : example test/Queries/read-pdf/extractText-opt1.xq
- : example test/Queries/read-pdf/extractText-noOpt.xq
- : example test/Queries/read-pdf/extractText-badOpt.xq
+ : @example test/Queries/read-pdf/extractText-simple.xq
+ : @example test/Queries/read-pdf/extractText-html.xq
+ : @example test/Queries/read-pdf/extractText-text.xq
+ : @example test/Queries/read-pdf/extractText-pageDelim.xq
+ : @example test/Queries/read-pdf/extractText-badOpt.xq
+ : @example test/Queries/read-pdf/extractText-badPdf.xq
  :)
 declare function
 read-pdf:extract-text($pdf as xs:base64Binary, $options as element(rp-options:extract-text-options)? )
@@ -173,9 +176,11 @@ read-pdf:extract-text-internal( $pdf as xs:base64Binary,
  : @return The rendered pages in the PDF document, as images.
  : @error read-pdf:VM001 If Zorba was unable to start the JVM.
  : @error read-pdf:JAVA-EXCEPTION If Apache PDFBox throws an exception.
- : example test/Queries/read-pdf/render-to-images-opt1.xq
- : example test/Queries/read-pdf/render-to-images-noOpt.xq
- : example test/Queries/read-pdf/render-to-images-badOpt.xq
+ : @example test/Queries/read-pdf/read-pdf/render-simple.xq
+ : @example test/Queries/read-pdf/read-pdf/render-jpg.xq
+ : @example test/Queries/read-pdf/read-pdf/render-png.xq
+ : @example test/Queries/read-pdf/read-pdf/render-badOpt.xq
+ : @example test/Queries/read-pdf/read-pdf/render-badPdf.xq
  :)
 declare function
 read-pdf:render-to-images($pdf as xs:base64Binary,
