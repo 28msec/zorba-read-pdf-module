@@ -33,22 +33,31 @@ IF (zorba_util-jvm_module_FOUND)
       SET (PDFBOX_PATH /usr/share/java/
                        /usr/share/java/pdfbox/ /opt/local/share/java/pdfbox/
                        /usr/share/java/fontbox/ /opt/local/share/java/fontbox/
+                       /usr/share/java/jempbox/ /opt/local/share/java/jempbox/
+                       /usr/share/java/commons/ /opt/local/share/java/commons/
                        ${Java_LIBRARIES})
     ENDIF (WIN32)
 
     ZORBA_FIND_JAR( PDFBOX_JAR NAMES pdfbox PATHS ${PDFBOX_PATH} )
     ZORBA_FIND_JAR( FONTBOX_JAR NAMES fontbox PATHS ${PDFBOX_PATH} )
+    ZORBA_FIND_JAR( JEMPBOX_JAR NAMES jempbox PATHS ${PDFBOX_PATH} )
+    ZORBA_FIND_JAR( COMMLOG_JAR NAMES commons-logging PATHS ${PDFBOX_PATH} )
 
     SET(ALL_PDFBOX_JARS FALSE)
     IF(EXISTS ${PDFBOX_JAR})
       IF(EXISTS ${FONTBOX_JAR})
-        SET(ALL_PDFBOX_JARS TRUE)
+        IF(EXISTS ${JEMPBOX_JAR})
+          IF(EXISTS ${COMMLOG_JAR})
+            SET(ALL_PDFBOX_JARS TRUE)
+          ENDIF(EXISTS ${COMMLOG_JAR})
+        ENDIF(EXISTS ${JEMPBOX_JAR})
       ENDIF(EXISTS ${FONTBOX_JAR})
     ENDIF(EXISTS ${PDFBOX_JAR})
 
     IF( ALL_PDFBOX_JARS )
 
-      MESSAGE (STATUS "pdfbox jars found at: " ${PDFBOX_JAR}  ${FONTBOX_JAR})
+      MESSAGE (STATUS "pdfbox jars found at: " ${PDFBOX_JAR} " " ${FONTBOX_JAR} " "
+                      ${JEMPBOX_JAR} " " ${COMMLOG_JAR})
       # if everything is found build this module
       SET (READ_PDF_VERSION 1.0)
 
@@ -66,7 +75,7 @@ IF (zorba_util-jvm_module_FOUND)
       DONE_DECLARING_ZORBA_URIS ()
 
     ELSE( ALL_PDFBOX_JARS )
-      MESSAGE (STATUS "pdfbox or fontbox jars not found; skipping read-pdf module.")
+      MESSAGE (STATUS "One of pdfbox, fontbox, jempbox or commons-logging jars not found; skipping read-pdf module.")
     ENDIF( ALL_PDFBOX_JARS )
 
   ELSE (JNI_FOUND)

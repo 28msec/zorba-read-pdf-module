@@ -27,9 +27,9 @@ xquery version "3.0";
  : <br /><b>Note:</b> Since this module has a Java library dependency a JVM required
  : to be installed on the system. For Windows: jvm.dll is required on the system
  : path ( usually located in "C:\Program Files\Java\jre6\bin\client".
- : <br /><b>Note:</b> For Debian based Linux distributions install PdfBox and FontBox
- : packages: sudo apt-get install libpdfbox-java libfontbox-java. For Windows use 
- : PDFBOX_HOME environment variable.
+ : <br /><b>Note:</b> For Debian based Linux distributions install PdfBox and its dependencies:
+ : sudo apt-get install libpdfbox-java libfontbox-java libjempbox-java libcommons-logging-java .
+ : For Windows use PDFBOX_HOME environment variable.
  :
  : @author Cezar Andrei
  : @see http://pdfbox.apache.org/
