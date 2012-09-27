@@ -31,7 +31,7 @@ DECLARE_ZORBA_SCHEMA (FILE read-pdf-options.xsd
 
 DECLARE_ZORBA_MODULE (
   URI "http://www.zorba-xquery.com/modules/read-pdf"
-  VERSION 0.9
+  VERSION 1.0
   FILE "read-pdf.xq"
   CONFIG_FILES ../srcJava/org/zorbaxquery/modules/readPdf/Config.java.in
   LINK_LIBRARIES "${JAVA_JVM_LIBRARY}" ${zorba_util-jvm_module_LIBRARIES})

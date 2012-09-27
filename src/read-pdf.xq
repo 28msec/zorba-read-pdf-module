@@ -24,16 +24,17 @@ xquery version "3.0";
  : implement these functions.
  : <br />
  : <br />
- : <b>Note:</b> Since this module has a Java library dependency a JVM required
+ : <br /><b>Note:</b> Since this module has a Java library dependency a JVM required
  : to be installed on the system. For Windows: jvm.dll is required on the system
  : path ( usually located in "C:\Program Files\Java\jre6\bin\client".
- : <b>Note:</b> For Debian based Linux distributions install PdfBox and FontBox
- : packages: sudo apt-get install libpdfbox-java libfontbox-java
+ : <br /><b>Note:</b> For Debian based Linux distributions install PdfBox and FontBox
+ : packages: sudo apt-get install libpdfbox-java libfontbox-java. For Windows use 
+ : PDFBOX_HOME environment variable.
  :
  : @author Cezar Andrei
  : @see http://pdfbox.apache.org/
  : @library <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">JDK - Java Development Kit</a>
- : @project data converters/read-pdf
+ : @project data processing/data converters
  : @library <a href="http://pdfbox.apache.org/">Apache PDFBox</a>
  :)
 module namespace read-pdf = "http://www.zorba-xquery.com/modules/read-pdf";
@@ -176,11 +177,11 @@ read-pdf:extract-text-internal( $pdf as xs:base64Binary,
  : @return The rendered pages in the PDF document, as images.
  : @error read-pdf:VM001 If Zorba was unable to start the JVM.
  : @error read-pdf:JAVA-EXCEPTION If Apache PDFBox throws an exception.
- : @example test/Queries/read-pdf/read-pdf/render-simple.xq
- : @example test/Queries/read-pdf/read-pdf/render-jpg.xq
- : @example test/Queries/read-pdf/read-pdf/render-png.xq
- : @example test/Queries/read-pdf/read-pdf/render-badOpt.xq
- : @example test/Queries/read-pdf/read-pdf/render-badPdf.xq
+ : @example test/Queries/read-pdf/render-simple.xq
+ : @example test/Queries/read-pdf/render-jpg.xq
+ : @example test/Queries/read-pdf/render-png.xq
+ : @example test/Queries/read-pdf/render-badOpt.xq
+ : @example test/Queries/read-pdf/render-badPdf.xq
  :)
 declare function
 read-pdf:render-to-images($pdf as xs:base64Binary,
