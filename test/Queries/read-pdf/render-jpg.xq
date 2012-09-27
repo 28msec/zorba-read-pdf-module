@@ -6,12 +6,13 @@ declare namespace rpo =
 
 
 let $pdf := file:read-binary(resolve-uri("28msec-NoSQLNow.pdf"))
-let $options  := 
+let $options  :=
     <rpo:render-to-images-options>
         <rpo:image-kind>jpg</rpo:image-kind>
         <rpo:start-page>2</rpo:start-page>
         <rpo:end-page>3</rpo:end-page>
-    </rpo:render-to-images-options> 
+    </rpo:render-to-images-options>
+let $imgs := read-pdf:render-to-images($pdf, $options)
+for $img in $imgs
 return
-    read-pdf:render-to-images($pdf, $options)
-
+    fn:string-length(fn:string($img)) > 1000

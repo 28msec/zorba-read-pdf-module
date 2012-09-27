@@ -6,7 +6,7 @@ declare namespace rpo =
 
 
 let $pdf := file:read-binary(resolve-uri("28msec-NoSQLNow.pdf"))
-let $options  := 
+let $options  :=
     <rpo:extract-text-options>
         <rpo:text-kind>simple</rpo:text-kind>
         <rpo:end-page>3</rpo:end-page>
@@ -16,8 +16,11 @@ let $options  :=
         <rpo:end-page-separator>
         ---end-page-sep---
         </rpo:end-page-separator>
-    </rpo:extract-text-options> 
+    </rpo:extract-text-options>
+let $str := read-pdf:extract-text($pdf, $options)
 return
-    read-pdf:extract-text($pdf, $options)
-
-
+     (fn:contains($str, "---start-page-sep---"),
+      fn:contains($str, "Harnessing Flexible Data in the Cloud"),
+      fn:contains($str, "Thursday, August 23, 12"),
+      fn:contains($str, "---end-page-sep---"),
+      fn:string-length($str) > 250 )

@@ -6,6 +6,7 @@ declare namespace rpo =
 
 
 let $pdf := file:read-binary(resolve-uri("pdftex-l.pdf"))
+let $imgs := read-pdf:render-to-images($pdf, ())
+for $img in $imgs
 return
-    read-pdf:render-to-images($pdf, ())
-
+    fn:string-length(fn:string($img)) > 1000
