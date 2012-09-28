@@ -27,7 +27,7 @@ IF (zorba_util-jvm_module_FOUND)
     INCLUDE_DIRECTORIES (${zorba_util-jvm_module_INCLUDE_DIRS})
 
     IF (WIN32)
-      SET (PDFBOX_PATH "$ENV{PDFBOX_HOME}\\lib C:\\dev\\libraries\\pdfbox C:\\dev\\libraries\\pdfbox\\lib C:\\dev\\libraries\\pdfbox\\build")
+      SET (PDFBOX_PATH "$ENV{PDFBOX_HOME} $ENV{PDFBOX_HOME}\\lib C:\\Libs\\pdfbox-1.7.1 C:\\dev\\libraries\\pdfbox C:\\dev\\libraries\\pdfbox\\lib C:\\dev\\libraries\\pdfbox\\build")
       MESSAGE (STATUS "pdfbox fontbox jars searching path: " ${PDFBOX_PATH} )
     ELSE (WIN32)
       SET (PDFBOX_PATH /usr/share/java/
