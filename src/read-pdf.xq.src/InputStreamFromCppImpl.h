@@ -41,7 +41,7 @@ extern "C" {
  * Signature: ([BI)I
  */
 
-JNIEXPORT jint JNICALL DLL_EXPORT
+DLL_EXPORT JNIEXPORT jint JNICALL
 Java_org_zorbaxquery_modules_readPdf_InputStreamFromCpp_nativeRead
     (JNIEnv * env, jobject jobj, jbyteArray ba, jint jsize, jlong p);
 

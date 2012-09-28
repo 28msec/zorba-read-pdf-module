@@ -113,7 +113,7 @@ extern "C" {
  * Reads from istream stored inside cppObjectPointer into ba of maximum jsize.
  * Returns number of bytes/chars read or -1 if eof or -2 if fail or bad stream.
  */
-JNIEXPORT jlong JNICALL DLL_EXPORT
+DLL_EXPORT JNIEXPORT jlong JNICALL
 Java_org_zorbaxquery_modules_readPdf_CppOutputStreamCreator_nativeCreateNewOutputStream
     (JNIEnv * env, jobject jobj, jlong p)
 {

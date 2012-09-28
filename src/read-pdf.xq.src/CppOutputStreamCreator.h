@@ -88,7 +88,7 @@ extern "C" {
  * Method:    nativeCreateNewOutputStream
  * Signature: ([BI)I
  */
-JNIEXPORT jlong JNICALL DLL_EXPORT
+DLL_EXPORT JNIEXPORT jlong JNICALL
 Java_org_zorbaxquery_modules_readPdf_CppOutputStreamCreator_nativeCreateNewOutputStream
   (JNIEnv *, jobject, jlong p);
 

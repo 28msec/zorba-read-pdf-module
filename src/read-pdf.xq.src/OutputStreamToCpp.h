@@ -37,7 +37,7 @@ extern "C" {
  * Method:    nativeWrite
  * Signature: ([BIIL)I
  */
-JNIEXPORT jint JNICALL DLL_EXPORT
+DLL_EXPORT JNIEXPORT jint JNICALL
 Java_org_zorbaxquery_modules_readPdf_OutputStreamToCpp_nativeWrite
   (JNIEnv *, jobject, jbyteArray, jint, jint, jlong);
 
