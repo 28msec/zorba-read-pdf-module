@@ -21,8 +21,16 @@ MESSAGE (STATUS " --- Module:   read-pdf    ---")
 # variables will be set. util-jvm also caches Java_FOUND and JNI_FOUND
 # for us.
 FIND_PACKAGE (zorba_util-jvm_module QUIET)
+INCLUDE ("${zorba_util-jvm_module_USE_FILE}")
 
 IF (zorba_util-jvm_module_FOUND)
+  FIND_PACKAGE (Zorba REQUIRED HINTS "${ZORBA_BUILD_DIR}")
+  INCLUDE ("${Zorba_USE_FILE}")
+
+  SET_CMAKE_MODULE_PATH ()
+  FIND_PACKAGE(JNI)
+  FIND_PACKAGE(Java)
+
   IF (JNI_FOUND)
     INCLUDE_DIRECTORIES (${zorba_util-jvm_module_INCLUDE_DIRS})
 
@@ -42,6 +50,11 @@ IF (zorba_util-jvm_module_FOUND)
     ZORBA_FIND_JAR( FONTBOX_JAR NAMES fontbox PATHS ${PDFBOX_PATH} )
     ZORBA_FIND_JAR( JEMPBOX_JAR NAMES jempbox PATHS ${PDFBOX_PATH} )
     ZORBA_FIND_JAR( COMMLOG_JAR NAMES commons-logging PATHS ${PDFBOX_PATH} )
+
+    MESSAGE(STATUS "commons-logging.jar Found in: ${COMMLOG_JAR}")
+    MESSAGE(STATUS "jempbox.jar Found in: ${JEMPBOX_JAR}")
+    MESSAGE(STATUS "fontbox.jar Found in: ${FONTBOX_JAR}")
+    MESSAGE(STATUS "pdfbox.jar Found in: ${PDFBOX_JAR}")
 
     SET(ALL_PDFBOX_JARS FALSE)
     IF(EXISTS ${PDFBOX_JAR})
@@ -63,11 +76,6 @@ IF (zorba_util-jvm_module_FOUND)
 
       ENABLE_TESTING ()
       INCLUDE (CTest)
-
-      SET_CMAKE_MODULE_PATH ()
-
-      FIND_PACKAGE (Zorba REQUIRED HINTS "${ZORBA_BUILD_DIR}")
-      INCLUDE ("${Zorba_USE_FILE}")
 
       ADD_SUBDIRECTORY ("src")
       ADD_SUBDIRECTORY ("srcJava")

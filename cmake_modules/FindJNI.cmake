@@ -14,17 +14,35 @@
 #
 
 #=============================================================================
-# Copyright 2001-2009 Kitware, Inc.
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
+# Copyright 2000-2009 Kitware, Inc., Insight Software Consortium
+# All rights reserved.
+# 
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+# 
+# * Redistributions of source code must retain the above copyright notice,
+# this list of conditions and the following disclaimer.
+# 
+# * Redistributions in binary form must reproduce the above copyright notice,
+# this list of conditions and the following disclaimer in the documentation 
+# and/or other materials provided with the distribution.
+# 
+# * Neither the names of Kitware, Inc., the Insight Software Consortium, nor 
+# the names of their contributors may be used to endorse or promote products 
+# derived from this software without specific prior written  permission.
+# 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE 
+# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+# POSSIBILITY OF SUCH DAMAGE.
 #=============================================================================
-# (To distribute this file outside of CMake, substitute the full
-#  License text for the above reference.)
 
 # Expand {libarch} occurences to java_libarch subdirectory(-ies) and set ${_var}
 MACRO(java_append_library_directories _var)
@@ -101,6 +119,18 @@ JAVA_APPEND_LIBRARY_DIRECTORIES(JAVA_AWT_LIBRARY_DIRECTORIES
   ${_JAVA_HOME}/jre/lib
   ${_JAVA_HOME}/lib
   ${_JAVA_HOME}
+  /usr/lib/jvm/java-6-openjdk/jre/lib
+  /usr/lib/jvm/java-6-openjdk-i386/jre/lib
+  /usr/lib/jvm/java-6-openjdk-amd64/jre/lib
+  /usr/lib/jvm/java-6-openjdk/jre/lib/{libarch}
+  /usr/lib/jvm/java-6-openjdk-i386/jre/lib/{libarch}
+  /usr/lib/jvm/java-6-openjdk-amd64/jre/lib/{libarch}
+  /usr/lib/jvm/java-7-openjdk/jre/lib
+  /usr/lib/jvm/java-7-openjdk-i386/jre/lib
+  /usr/lib/jvm/java-7-openjdk-amd64/jre/lib
+  /usr/lib/jvm/java-7-openjdk/jre/lib/{libarch}
+  /usr/lib/jvm/java-7-openjdk-i386/jre/lib/{libarch}
+  /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/{libarch}
   /usr/lib
   /usr/local/lib
   /usr/lib/jvm/java/lib
@@ -113,7 +143,6 @@ JAVA_APPEND_LIBRARY_DIRECTORIES(JAVA_AWT_LIBRARY_DIRECTORIES
   /usr/lib/jvm/java-6-sun/jre/lib/{libarch}
   /usr/lib/jvm/java-1.5.0-sun/jre/lib/{libarch}
   /usr/lib/jvm/java-6-sun-1.6.0.00/jre/lib/{libarch}       # can this one be removed according to #8821 ? Alex
-  /usr/lib/jvm/java-6-openjdk/jre/lib/{libarch}
   /usr/lib/jvm/java-openjdk/jre/lib/{libarch}
   # Debian specific paths for default JVM
   /usr/lib/jvm/default-java/jre/lib/{libarch}
@@ -137,6 +166,9 @@ SET(JAVA_AWT_INCLUDE_DIRECTORIES
   "[HKEY_LOCAL_MACHINE\\SOFTWARE\\JavaSoft\\Java Development Kit\\1.3;JavaHome]/include"
   "[HKEY_LOCAL_MACHINE\\SOFTWARE\\JavaSoft\\Java Development Kit\\${java_install_version};JavaHome]/include"
   ${_JAVA_HOME}/include
+  /usr/lib/jvm/java-6-openjdk/include
+  /usr/lib/jvm/java-6-openjdk-amd64/include
+  /usr/lib/jvm/java-6-openjdk-i386/include
   /usr/include 
   /usr/local/include
   /usr/lib/java/include
@@ -233,6 +265,7 @@ FIND_PATH(JAVA_AWT_INCLUDE_PATH jawt.h
   ${JAVA_INCLUDE_PATH}
 )
 
+
 IF (APPLE)
   # On Mac, the java headers files are broken symlinks if the Apple Developer Tools for Java are not installed
   EXECUTE_PROCESS(COMMAND cat ${JAVA_INCLUDE_PATH}/jni.h
@@ -275,5 +308,3 @@ ELSE (JAVA_AWT_LIBRARY AND JAVA_JVM_LIBRARY AND JAVA_INCLUDE_PATH AND JAVA_INCLU
   SET(JNI_LIBRARIES "")
   SET(JNI_INCLUDE_DIRS "")
 ENDIF (JAVA_AWT_LIBRARY AND JAVA_JVM_LIBRARY AND JAVA_INCLUDE_PATH AND JAVA_INCLUDE_PATH2 AND JAVA_AWT_INCLUDE_PATH)
-
-
