@@ -19,7 +19,7 @@
 #include <list>
 #include <sstream>
 
-#include <zorba/util/base64.h>
+#include <zorba/util/base64_util.h>
 #include <zorba/util/base64_stream.h>
 #include <zorba/empty_sequence.h>
 #include <zorba/diagnostic_list.h>
