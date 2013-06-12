@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include <sstream>
-#include <iostream>
-#include <cstdlib>
-#include <list>
 
-#include <zorba/base64.h>
-#include <zorba/base64_stream.h>
+#include <cstdlib>
+#include <iostream>
+#include <list>
+#include <sstream>
+
+#include <zorba/util/base64.h>
+#include <zorba/util/base64_stream.h>
 #include <zorba/empty_sequence.h>
 #include <zorba/diagnostic_list.h>
 #include <zorba/function.h>
 #include <zorba/external_module.h>
 #include <zorba/user_exception.h>
-#include <zorba/file.h>
 #include <zorba/item_factory.h>
 #include <zorba/serializer.h>
 #include <zorba/singleton_item_sequence.h>
