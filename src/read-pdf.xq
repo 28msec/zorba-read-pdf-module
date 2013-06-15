@@ -34,7 +34,7 @@ xquery version "3.0";
  : @author Cezar Andrei
  : @see http://pdfbox.apache.org/
  : @library <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">JDK - Java Development Kit</a>
- : @project data processing/data converters
+ : @project Zorba/Data Processing/PDF Reader
  : @library <a href="http://pdfbox.apache.org/">Apache PDFBox</a>
  :)
 module namespace read-pdf = "http://www.zorba-xquery.com/modules/read-pdf";
