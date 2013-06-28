@@ -537,7 +537,8 @@ void renderToImages(const ExternalFunction::Arguments_t& args,
       std::stringstream* ss = osCreator->getSS(i);
       std::string ssString = ss->str();
       vec.push_back(
-          itemFactory->createBase64Binary((const unsigned char*)ssString.c_str(), ssString.size()));
+        itemFactory->createBase64Binary(ssString.c_str(), ssString.size(), false)
+      );
     }
 
     osCreator->close(env);
@@ -876,3 +877,5 @@ extern "C" DLL_EXPORT zorba::ExternalModule* createModule()
 {
   return new zorba::readpdf::ReadPdfModule();
 }
+
+/* vim:set et sw=2 ts=2: */
