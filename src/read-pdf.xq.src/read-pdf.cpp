@@ -392,7 +392,7 @@ ExtractTextFunction::evaluate(const ExternalFunction::Arguments_t& args,
           {
             String lTmpEncoded(lMsg, lSize);
             // lTmpDecodedBuf is used to make sure lMsg is still alive during HMAC_Update
-            lTmpDecodedBuf = base64::decode(lTmpEncoded);
+            base64::decode(lMsg, lSize, &lTmpDecodedBuf);
             lMsg = lTmpDecodedBuf.c_str();
             lSize = lTmpDecodedBuf.size();
           }
@@ -595,9 +595,8 @@ RenderToImagesFunction::evaluate(const ExternalFunction::Arguments_t& args,
         const char* lMsg = lItem.getBase64BinaryValue(lSize);
         if (lItem.isEncoded())
         {
-          String lTmpEncoded(lMsg, lSize);
           // lTmpDecodedBuf is used to make sure lMsg is still alive during HMAC_Update
-          lTmpDecodedBuf = base64::decode(lTmpEncoded);
+          base64::decode(lMsg, lSize, &lTmpDecodedBuf);
           lMsg = lTmpDecodedBuf.c_str();
           lSize = lTmpDecodedBuf.size();
         }
