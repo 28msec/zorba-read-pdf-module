@@ -62,7 +62,7 @@ declare option ver:module-version "1.0";
  : <a href="http://pdfbox.apache.org/">official PDFBox documentation for further
  : information</a>.
  : <br />
- : Example:<pre class="brush: xquery;">
+ : Example:<pre class="ace-static" ace-mode="xquery">
  :
  :  import module namespace read-pdf = "http://www.zorba-xquery.com/modules/read-pdf";
  :  import module namespace file = "http://expath.org/ns/file";
@@ -141,7 +141,7 @@ read-pdf:extract-text-internal( $pdf as xs:base64Binary,
  : <a href="http://pdfbox.apache.org/">official PDFBox documentation for further
  : information</a>.
  : <br />
- : Example:<pre class="brush: xquery;">
+ : Example:<pre class="ace-static" ace-mode="xquery">
  :
  :  import module namespace read-pdf = "http://www.zorba-xquery.com/modules/read-pdf";
  :  import module namespace file = "http://expath.org/ns/file";
