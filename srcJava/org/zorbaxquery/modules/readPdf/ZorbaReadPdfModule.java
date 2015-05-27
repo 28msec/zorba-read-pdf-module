@@ -23,6 +23,7 @@ import org.apache.pdfbox.pdmodel.PDDocumentNameDictionary;
 import org.apache.pdfbox.pdmodel.PDEmbeddedFilesNameTreeNode;
 import org.apache.pdfbox.pdmodel.common.filespecification.PDComplexFileSpecification;
 import org.apache.pdfbox.pdmodel.common.filespecification.PDEmbeddedFile;
+import org.apache.pdfbox.pdmodel.common.COSObjectable;
 import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
 import org.apache.pdfbox.pdmodel.encryption.StandardDecryptionMaterial;
 import org.apache.pdfbox.util.PDFText2HTML;
@@ -376,9 +377,9 @@ public class ZorbaReadPdfModule
                     PDEmbeddedFilesNameTreeNode embeddedFiles = names.getEmbeddedFiles();
                     if (embeddedFiles != null)
                     {
-                        Map<String,Object> embeddedFileNames = embeddedFiles.getNames();
+                        Map<String,COSObjectable> embeddedFileNames = embeddedFiles.getNames();
                         if (embeddedFileNames != null) {
-                            for (Map.Entry<String,Object> ent : embeddedFileNames.entrySet())
+                            for (Map.Entry<String,COSObjectable> ent : embeddedFileNames.entrySet())
                             {
                                 PDComplexFileSpecification spec = (PDComplexFileSpecification) ent.getValue();
                                 PDEmbeddedFile file = spec.getEmbeddedFile();
