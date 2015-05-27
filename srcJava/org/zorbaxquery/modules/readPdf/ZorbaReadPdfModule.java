@@ -377,9 +377,9 @@ public class ZorbaReadPdfModule
                     PDEmbeddedFilesNameTreeNode embeddedFiles = names.getEmbeddedFiles();
                     if (embeddedFiles != null)
                     {
-                        Map<String,COSObjectable> embeddedFileNames = embeddedFiles.getNames();
+                        Map<String,? extends Object> embeddedFileNames = embeddedFiles.getNames();
                         if (embeddedFileNames != null) {
-                            for (Map.Entry<String,COSObjectable> ent : embeddedFileNames.entrySet())
+                            for (Map.Entry<String,? extends Object> ent : embeddedFileNames.entrySet())
                             {
                                 PDComplexFileSpecification spec = (PDComplexFileSpecification) ent.getValue();
                                 PDEmbeddedFile file = spec.getEmbeddedFile();
