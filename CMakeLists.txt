@@ -12,11 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+MESSAGE(STATUS "")
+MESSAGE(STATUS "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+MESSAGE(STATUS "Configuring external module <read-pdf>")
+MESSAGE(STATUS "-------------------------------------------------------------")
+MESSAGE(STATUS "")
+
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 PROJECT (zorba_read-pdf_module)
 
-MESSAGE (STATUS " --- Module:   read-pdf    ---")
 # The util-jvm tool finds Java and JNI, so all standard cached JAVA_
 # variables will be set. util-jvm also caches Java_FOUND and JNI_FOUND
 # for us.
@@ -26,7 +31,7 @@ INCLUDE(${CMAKE_CURRENT_SOURCE_DIR}/config/UtilJavaUse.cmake)
 
 IF (zorba_util-jvm_module_FOUND)
   FIND_PACKAGE (Zorba REQUIRED HINTS "${ZORBA_BUILD_DIR}")
-  INCLUDE ("${Zorba_USE_FILE}")  
+  INCLUDE ("${Zorba_USE_FILE}")
 
   SET_CMAKE_MODULE_PATH ()
   ZORBA_FIND_JNI()
@@ -82,17 +87,35 @@ IF (zorba_util-jvm_module_FOUND)
       ADD_SUBDIRECTORY ("srcJava")
       ADD_TEST_DIRECTORY("${PROJECT_SOURCE_DIR}/test")
       DONE_DECLARING_ZORBA_URIS ()
+      
+      MESSAGE(STATUS "")
+      MESSAGE(STATUS "-------------------------------------------------------------")
+      MESSAGE(STATUS "Configuration SUCCEEDED for external module <read-pdf>")
 
     ELSE( ALL_PDFBOX_JARS )
       MESSAGE (STATUS "One of pdfbox, fontbox, jempbox or commons-logging jars not found; skipping read-pdf module.")
+      
+      MESSAGE(STATUS "")
+      MESSAGE(STATUS "-------------------------------------------------------------")  
+      MESSAGE(STATUS "Configuration FAILED for external module <read-pdf>")
+    
     ENDIF( ALL_PDFBOX_JARS )
 
   ELSE (JNI_FOUND)
     MESSAGE (STATUS "Java and/or JNI not found; skipping read-pdf module.")
+    
+    MESSAGE(STATUS "")
+    MESSAGE(STATUS "-------------------------------------------------------------")  
+    MESSAGE(STATUS "Configuration FAILED for external module <read-pdf>")
   ENDIF (JNI_FOUND)
 
 ELSE (zorba_util-jvm_module_FOUND)
   MESSAGE (STATUS "Zorba's util-jvm module not found; skipping read-pdf module.")
+  
+  MESSAGE(STATUS "")
+  MESSAGE(STATUS "-------------------------------------------------------------")  
+  MESSAGE(STATUS "Configuration FAILED for external module <read-pdf>")
+  
 ENDIF (zorba_util-jvm_module_FOUND)
 
-MESSAGE (STATUS " --- End module:   read-pdf    ---")
+MESSAGE(STATUS "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
