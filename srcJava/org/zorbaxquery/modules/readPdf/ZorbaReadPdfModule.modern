@@ -16,7 +16,7 @@
 
 package org.zorbaxquery.modules.readPdf;
 
-import org.apache.pdfbox.exceptions.InvalidPasswordException;
+import org.apache.pdfbox.exceptions.CryptographyException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentCatalog;
 import org.apache.pdfbox.pdmodel.PDDocumentNameDictionary;
@@ -473,7 +473,7 @@ public class ZorbaReadPdfModule
                     {
                         document.decrypt( options.getPassword() );
                     }
-                    catch( InvalidPasswordException e )
+                    catch( CryptographyException e )
                     {
                         if( options.getPassword()!=null ) //they supplied the wrong password
                         {
