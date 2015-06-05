@@ -28,6 +28,7 @@ PROJECT (zorba_read-pdf_module)
 FIND_PACKAGE (zorba_util-jvm_module QUIET)
 INCLUDE ("${zorba_util-jvm_module_USE_FILE}")
 INCLUDE(${CMAKE_CURRENT_SOURCE_DIR}/config/UtilJavaUse.cmake)
+INCLUDE(${CMAKE_CURRENT_SOURCE_DIR}/config/CMakeCompareVersionStrings.cmake)
 
 IF (zorba_util-jvm_module_FOUND)
   FIND_PACKAGE (Zorba REQUIRED HINTS "${ZORBA_BUILD_DIR}")
