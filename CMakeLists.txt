@@ -79,6 +79,12 @@ IF (zorba_util-jvm_module_FOUND)
                       ${JEMPBOX_JAR} " " ${COMMLOG_JAR})
       # if everything is found build this module
       SET (READ_PDF_VERSION 1.0)
+      
+      EXECUTE_PROCESS(COMMAND unzip -p ${PDFBOX_JAR} META-INF/MANIFEST.MF # |grep "Implementation-Version: " | sed 's/Implementation-Version: \(.*\)/\1/'
+                      OUTPUT_VARIABLE PDFBOX_MANIFEST)
+      string(REGEX REPLACE ".*Implementation-Version:[ \t]*([0-9.]*).*"
+       "\\1" PDFBOX_VERSION ${PDFBOX_MANIFEST})
+      MESSAGE (STATUS "pdfbox version: " ${PDFBOX_VERSION})
 
       ENABLE_TESTING ()
       INCLUDE (CTest)

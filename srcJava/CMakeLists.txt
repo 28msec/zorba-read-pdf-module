@@ -37,6 +37,17 @@ FOREACH(JAVA_SOURCE1_FILE ${JAVA_SOURCE1_FILES})
     CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/${JAVA_SOURCE1_FILE}" "${CMAKE_CURRENT_BINARY_DIR}/${JAVA_SOURCE1_FILE}" COPYONLY)
 ENDFOREACH(JAVA_SOURCE1_FILE ${JAVA_SOURCE1_FILES})
 
+COMPARE_VERSION_STRINGS("1.8.5" "${PDFBOX_VERSION}" result)
+IF(result GREATER 0)
+  MESSAGE(STATUS "Using legacy code")
+  CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/org/zorbaxquery/modules/readPdf/ZorbaReadPdfModule.legacy" "${CMAKE_CURRENT_BINARY_DIR}/org/zorbaxquery/modules/readPdf/ZorbaReadPdfModule.java" COPYONLY)
+ELSE(result GREATER 0)
+  MESSAGE(STATUS "Using modern code")
+  CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/org/zorbaxquery/modules/readPdf/ZorbaReadPdfModule.modern" "${CMAKE_CURRENT_BINARY_DIR}/org/zorbaxquery/modules/readPdf/ZorbaReadPdfModule.java" COPYONLY)
+ENDIF(result GREATER 0)
+
+
+
 # find all java files, this will also find Config.java with all the correct values inside
 file(GLOB_RECURSE JAVA_SOURCE_FILES RELATIVE "${CMAKE_CURRENT_BINARY_DIR}"
     "${CMAKE_CURRENT_BINARY_DIR}/*.java")
